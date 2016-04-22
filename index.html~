@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css"/>
+    <title>TR JS</title>
+  </head>
+  <body>
+    <div class="main">
+    <div class="info" id="info">Hover over an element below and information will appear here</div>
+    <input type="number" id="max" onmouseover="hovering('The maximum sum, eg if you entered 12 the highest answer would be 12*12 (144)')"></input>
+    <input type="checkbox" checked="true" class="check" id="multiply" onmouseover="hovering('Whether multiplications should be included in questions')"></input>
+    <input type="checkbox" checked="true" class="check" id="add" onmouseover="hovering('Whether additions should be included in questions')"></input>
+    <input type="checkbox" checked="true" class="check" id="subtract" onmouseover="hovering('Whether subtractions should be included in questions')"></input>
+    <button id="begin" class="start" onclick="start()">Go!</button>
+    <div class="questions" id="questions">Questions will appear here</div>
+    <div class="answers">
+      
+      <p>Type answers in below</p>
+      <input type="number" id="ans" value=""></input>
+      
+      <button id="submit" onclick="submit()">Submit</button>
+      
+      <br/>
+      <p class="closer">This game has been developed as a mini project. This means that it is probably full of bugs, but you're just gonna have to live with that. How it works: Enter a number (as a starting point I recommend 12) into the top box and press 'Go!'. Then answer the question in the bottom box and press ENTER or 'Submit'. If you got it right, another question will appear. You cannot change the value in the top box without restarting the game.</p>
+      <p class="base">This project was originally in python3! It has more functionality and you can get it off my <a href="https://github.com/PythonJellyfish">Github</a>!
+    
+    </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

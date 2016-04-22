@@ -1,0 +1,72 @@
+var correct = 0, //how many correct answers
+question,
+answer, //what answer the user keyed in
+ans_c, //the correct answer to the question
+q1, //the first part of the question
+q2, //the third part of the question
+ans_c_old, //to store the previous answer after a new one has been created
+operator,
+maxr; //the operator or second part of the question
+
+
+var randint = function(s,f) {
+  var i = Math.random();
+  var i2 = i * ((f - s) + 1);
+  var i3 = i2 + s;
+  var i4 = Math.floor(i3);
+  return i4;
+}
+
+var gen_operator = function() {
+  var j = randint(0,2);
+  if (j==0) {
+    operator = '*';
+  }
+  else if (j==1) {
+    operator = '-';
+  }
+  else if (j==2) {
+    operator = '+';
+  }
+  else {
+    alert('Hey! I\'m having an issue here. Please report to the developer: Issue in gen_operator, could not get operator');
+  }
+  return operator;
+}
+
+var parseQuestion = function(op,p1,p2) {
+  console.log('Operator:' + op + ' p1:' + p1 + ' p2:' + p2)
+  question = p1+op+p2;
+  ans_c_old = ans_c;
+  ans_c = eval(question);
+}
+
+var submit = function() {
+  gen_operator();
+  answer = document.getElementById('ans').value;
+  if(answer==ans_c){correct++;parseQuestion(operator, randint(1,maxr), randint(1,maxr));
+  document.getElementById('questions').innerHTML = question;}
+  else{end(correct.toString())}
+  console.log(question + ' :: ' + answer.toString() + ' :: ' + ans_c + ' ');
+  document.getElementById('ans').value = '';  
+}
+
+var start = function() {
+  maxr = document.getElementById('max').value;
+  gen_operator();
+  parseQuestion(operator, randint(1,maxr), randint(1,maxr));
+  document.getElementById('questions').innerHTML = question;
+  document.getElementById('begin').innerHTML = 'Restart'
+}
+
+var enter = function(e) {
+  var k = e.keyCode;
+  if(k==13){submit();}
+}
+
+var end = function(c) {
+  document.getElementById('questions').innerHTML = 'You failed! The correct answer was ' + ans_c + '. Correct answers: ' + c;
+  document.getElementById('begin').innerHTML = 'Retry!'
+}
+
+document.onkeydown = enter;
