@@ -46,18 +46,11 @@ var gen_operator = function() {
   return operator;
 }
 
-var parseQuestion = function(op,p1,p2) {
+function parseQuestion(op,p1,p2) {
   console.log('Operator:' + op + ' p1:' + p1 + ' p2:' + p2)
-  /*if(p1>p2){  *decides which way the question will be presented. It puts the larger number first to make questions easier to read*
-    question = p1+op+p2;
-  }
-  else if(p1<p2){
-    question = p2+op+p1;
-  }*/
+  ans_c_old = ans_c;
   
   question = Math.max(p1,p2) + op + Math.min(p1,p2);
-  
-  ans_c_old = ans_c;
   ans_c = eval(question);
 }
 
@@ -67,13 +60,15 @@ var submit = function() {
   answer = document.getElementById('ans').value;
   if(answer==ans_c){
     correct++;
-    parseQuestion(operator, randint(1,maxr), randint(1,maxr));
+    while(ans_c == ans_c_old){
+      parseQuestion(operator, randint(1,maxr), randint(1,maxr));
+    }
     document.getElementById('questions').innerHTML = question;
   }
   else{
     end(correct.toString())
   }
-  //console.log(question + ' :: ' + answer.toString() + ' :: ' + ans_c + ' ');
+  /*console.log(question + ' :: ' + answer.toString() + ' :: ' + ans_c + ' ');*/
   document.getElementById('ans').value = '';  
 }
 
