@@ -22,7 +22,7 @@ var randint = function(s,f) {
 }
 
 var gen_operator = function() {
-  retry=true;
+  retry = true;
   while(retry){
     var j = randint(0,2);
     if (j==0) {
@@ -34,11 +34,13 @@ var gen_operator = function() {
     else if (j==2) {
       operator = '+';
     }
-    if(!add&&operator=='+'){retry=true;}
-    else if(!subtract&&operator=='-'){retry=true;}
-    else if(!multiply&&operator=='*'){retry=true;}
+    if(!add && operator=='+'){retry=true;}
+    else if(!subtract && operator=='-'){retry=true;}
+    else if(!multiply && operator=='*'){retry=true;}
     
-    else{retry=false;}
+    else{
+      retry = false;
+    }
   }
   
   return operator;
@@ -46,12 +48,15 @@ var gen_operator = function() {
 
 var parseQuestion = function(op,p1,p2) {
   console.log('Operator:' + op + ' p1:' + p1 + ' p2:' + p2)
-  if(p1>p2){  //decides which way the question will be presented. It puts the larger number first to make questions easier to read
+  /*if(p1>p2){  *decides which way the question will be presented. It puts the larger number first to make questions easier to read*
     question = p1+op+p2;
   }
   else if(p1<p2){
     question = p2+op+p1;
-  }
+  }*/
+  
+  question = Math.max(p1,p2) + op + Math.min(p1,p2);
+  
   ans_c_old = ans_c;
   ans_c = eval(question);
 }
