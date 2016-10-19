@@ -25,13 +25,13 @@ var gen_operator = function() {
   retry = true;
   while(retry){
     var j = randint(0,2);
-    if (j==0) {
+    if(j==0) {
       operator = '*';
     }
-    else if (j==1) {
+    else if(j==1) {
       operator = '-';
     }
-    else if (j==2) {
+    else if(j==2) {
       operator = '+';
     }
     if(!add && operator=='+'){retry=true;}
@@ -54,25 +54,24 @@ function parseQuestion(op,p1,p2) {
   ans_c = eval(question);
 }
 
-var submit = function() {
+function submit(){
   document.getElementById('questions').style.fontSize = "50px";
   gen_operator();
   answer = document.getElementById('ans').value;
-  if(answer==ans_c){
-    correct++;
-    while(ans_c == ans_c_old){
-      parseQuestion(operator, randint(1,maxr), randint(1,maxr));
-    }
-    document.getElementById('questions').innerHTML = question;
+  if(answer==ans_c){ /*run if the player gets the question right*/
+    correct++; /*increase the score by 1*/
+    parseQuestion(operator, randint(1,maxr), randint(1,maxr)); /*create a new question*/
+    document.getElementById('questions').innerHTML = question; /*draw a new question onto the screen*/
   }
-  else{
+  
+  else{ /*run if the player fails the question*/
     end(correct.toString())
   }
-  /*console.log(question + ' :: ' + answer.toString() + ' :: ' + ans_c + ' ');*/
+  
   document.getElementById('ans').value = '';  
 }
 
-var start = function() {
+function start(){
   if(document.getElementById('multiply').checked){
     multiply=true;
   }else{multiply=false;}
@@ -105,7 +104,7 @@ var start = function() {
   init = true;
 }
 
-var end = function(c) {
+function end(c) {
   document.getElementById('questions').innerHTML = 'You failed! The correct answer was ' + ans_c + '. Correct answers: ' + c;
   document.getElementById('begin').innerHTML = 'Retry!';
   started = false;
@@ -113,7 +112,7 @@ var end = function(c) {
   document.getElementById('questions').style.fontSize = "16px";
 }
 
-var enter = function(e) {
+function enter(e) {
   var k = e.keyCode;
   if(k==13){
     if(!started){
@@ -130,15 +129,8 @@ var enter = function(e) {
   }
 }
 
-var hovering = function(info){
+function hovering(info){
   document.getElementById('info').innerHTML=info;
-
-}
-
-var setup = function(){
-  wx = $(window).width();
-  wy = $(window).height();
 }
 
 document.onkeyup = enter;
-document.onload = setup;
